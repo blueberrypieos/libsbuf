@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+# SPDX-License-Identifier: BSD-2-Clause
+# Copyright (c) 2026 The Blueberry Pie OS Authors
+
+include /usr/share/pietoolchain/rules.mk
+
+$(OBJ)/sbuf.o: $(SRCROOT)/sbuf.c $(SRCROOT)/usbuf.h
+	@mkdir -p $(OBJ)
+	$(CC) $(BASE_CFLAGS) -c $< -o $@
+
+$(OBJ)/libsbuf.dylib: $(OBJ)/sbuf.o
+	$(CC) $(BASE_LDFLAGS) -dynamiclib -install_name /usr/lib/libsbuf.dylib \
+		-compatibility_version 1 -current_version 1 $< -o $@
+
+install: $(OBJ)/libsbuf.dylib
+	install -d $(ROOT)/usr/lib $(ROOT)/usr/include
+	install -m 755 $(OBJ)/libsbuf.dylib $(ROOT)/usr/lib/
+	install -m 644 $(SRCROOT)/usbuf.h $(ROOT)/usr/include/
+
+.PHONY: install

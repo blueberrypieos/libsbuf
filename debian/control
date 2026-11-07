@@ -1,0 +1,26 @@
+Source: libsbuf
+Section: libs
+Priority: optional
+Maintainer: Maxwell <maxwell@blueberrypieos.com>
+Build-Depends: pietoolchain (>= 0.1.0)
+Standards-Version: 4.7.3
+Homepage: https://github.com/blueberrypieos/libsbuf
+Vcs-Git: https://github.com/blueberrypieos/libsbuf.git
+Vcs-Browser: https://github.com/blueberrypieos/libsbuf
+Rules-Requires-Root: no
+
+Package: libsbuf
+Architecture: darwin-arm64
+Essential: yes
+Priority: required
+Depends: libsystem
+Description: string buffer library (sbuf)
+ /usr/lib/libsbuf.dylib: FreeBSD's sbuf(9) string buffers in user space.
+
+Package: libsbuf-dev
+Section: libdevel
+Priority: optional
+Architecture: darwin-arm64
+Depends: libsbuf (= ${binary:Version})
+Description: string buffer library (sbuf): development files
+ The header for building programs against libsbuf.
